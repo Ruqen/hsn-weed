@@ -92,35 +92,35 @@ GetStatusFromWeedId = function(id)
     if neweed.weedstatus <= 10 then
         zm = 1
         req.requireditem = Config.RequiredItems[1].item
-        req.text = '1 tane '..Config.RequiredItems[1].label..' gerekiyor '..'%'..neweed.weedstatus
+        req.text = 'In need of 1 '..Config.RequiredItems[1].label..' '..'%'..neweed.weedstatus
         return req
     elseif neweed.weedstatus <= 20 then
         req.requireditem = Config.RequiredItems[1].item
-        req.text = '1 tane '..Config.RequiredItems[1].label..' gerekiyor '..'%'..neweed.weedstatus
+        req.text = 'In need of 1 '..Config.RequiredItems[1].label..' '..'%'..neweed.weedstatus
         return req
     elseif neweed.weedstatus <= 50 then
         req.requireditem = Config.RequiredItems[1].item
-        req.text = '1 tane '..Config.RequiredItems[1].label..' gerekiyor '..'%'..neweed.weedstatus
+        req.text = 'In need of 1 '..Config.RequiredItems[1].label..' '..'%'..neweed.weedstatus
         return req
     elseif neweed.weedstatus <= 70 then
         req.requireditem = Config.RequiredItems[1].item
-        req.text = '1 tane '..Config.RequiredItems[1].label..' gerekiyor '..'%'..neweed.weedstatus
+        req.text = 'In need of 1 '..Config.RequiredItems[1].label..' '..'%'..neweed.weedstatus
         return req
     elseif neweed.weedstatus <= 80 then
         req.requireditem = Config.RequiredItems[2].item
-        req.text = '1 tane '..Config.RequiredItems[2].label..' gerekiyor '..'%'..neweed.weedstatus
+        req.text = 'In need of 1 '..Config.RequiredItems[2].label..' '..'%'..neweed.weedstatus
         return req
     elseif neweed.weedstatus <= 90 then
         req.requireditem = Config.RequiredItems[2].item
-        req.text = '1 tane '..Config.RequiredItems[2].label..' gerekiyor '..'%'..neweed.weedstatus
+        req.text = 'In need of 1 '..Config.RequiredItems[2].label..' '..'%'..neweed.weedstatus
         return req
     elseif neweed.weedstatus <= 99 then   
         req.requireditem = Config.RequiredItems[2].item
-        req.text = '1 tane '..Config.RequiredItems[2].label..' gerekiyor '..'%'..neweed.weedstatus
+        req.text = 'In need of 1'..Config.RequiredItems[2].label..' '..'%'..neweed.weedstatus
         return req 
     elseif neweed.weedstatus >= 100 then
         req.requireditem = Config.RequiredItems[2].item
-        req.text = 'Toplanabilir %100'
+        req.text = 'Can be collected: %100'
         return req
     end
 end
@@ -134,7 +134,7 @@ Citizen.CreateThread(function()
                 distance = #(GetEntityCoords(PlayerPedId()) - vector3(v.coords.x, v.coords.y, v.coords.z))
                 if distance <= 5.0 then
                     local state = GetStatusFromWeedId(k)
-                    text = 'Kenevir'
+                    text = 'Weed'
                     wait = 1
                     if distance <= 1.5 then
                         text = 'E -'..state.text
