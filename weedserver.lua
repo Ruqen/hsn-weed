@@ -47,8 +47,8 @@ ESX.RegisterUsableItem("femaleseed", function(source)
     
     local player = ESX.GetPlayerFromId(source)
     if inhouse[player.identifier] then
-        local saksi = player.getInventoryItem("pot")
-        if saksi.count >= 1 then
+        local pot = player.getInventoryItem("pot")
+        if pot.count >= 1 then
             local coord = player.getCoords()
             local id = math.random(11111,99999)
             local src = source
@@ -72,10 +72,10 @@ ESX.RegisterUsableItem("femaleseed", function(source)
             }, function(rowsChanged)
             end)
         else
-            TriggerClientEvent("notification", source, "Bunu yapmak için saksıya ihtiyacın var!")
+            player.showNotification("You need a pot to do that.")
         end
     else
-        TriggerClientEvent("notification", source, "Bunu yapmak için evinde olman gerek!")
+        player.showNotification("You need to be in your home to do that.")
     end
 end)
 
@@ -88,7 +88,7 @@ AddEventHandler('hsn-weed:server:updateweedstate',function(weed,item)
         if not weeds[weed].pressed then
             if weeds[weed].weedstatus  >= 100 then
                 Player.addInventoryItem('weedq',15)
-                TriggerClientEvent('notification',src,'Keneviri tamamen işlediniz',3)
+                player.showNotification("Fully converted the weed.")
                 TriggerClientEvent('hsn-weed:client:deleteweed',-1,weed)
                 weeds[weed] = nil
                 return
@@ -99,10 +99,10 @@ AddEventHandler('hsn-weed:server:updateweedstate',function(weed,item)
             TriggerClientEvent('hsn-weed:client:updateweedstatus',-1,weed,weeds[weed].weedstatus)
             Player.removeInventoryItem(item, 1)
         else
-            TriggerClientEvent('notification',src,'Kenevirin işlenmesi için biraz beklemeniz gerekiyor',2)
+            player.showNotification("You need to wait for weed to grow up.")
         end
     else
-        TriggerClientEvent('notification',src,'Yeterli eşyaya sahip değilsin',2)
+        player.showNotification("You don't have the required item.")
     end
 end)
 
