@@ -33,8 +33,8 @@ AddEventHandler('esx:playerLoaded',function(playerId, xPlayer)
     TriggerClientEvent('hsn-weed:client:spawnweedprop',-1,weeds)
 end)
 
-exports["ghmattimysql"]:ready(function()
-    local result = exports.ghmattimysql:executeSync('SELECT * FROM hsn_weed')
+MySQL.ready(function()
+    local result = MySQL.Sync.fetchAll('SELECT * FROM hsn_weed')
     for i = 1, #result do
         result[i].coords = json.decode(result[i].coords)
         weeds[result[i].weedid] = result[i]
@@ -65,7 +65,7 @@ ESX.RegisterUsableItem("femaleseed", function(source)
             TriggerClientEvent('hsn-weed:client:spawnweedprop',-1,weeds)
             print(id)
             print(coord)
-            exports.ghmattimysql:execute('INSERT INTO hsn_weed (weedid, coords, weedstatus) VALUES (@weedid, @coords, @weedstatus)', {
+            MySQL.Async.execute('INSERT INTO hsn_weed (weedid, coords, weedstatus) VALUES (@weedid, @coords, @weedstatus)', {
                 ['@weedid']   =  id,
                 ['@coords']   = json.encode(coord),
                 ['@weedstatus'] = 0
@@ -95,7 +95,7 @@ AddEventHandler('hsn-weed:server:updateweedstate',function(weed,item)
             end
             weeds[weed].pressed = true
             weeds[weed].weedstatus = weeds[weed].weedstatus + stat
-            exports.ghmattimysql:execute("UPDATE hsn_weed SET weedstatus = '"..weeds[weed].weedstatus.. "' WHERE weedid = '" ..weed.. "'")
+            MySQL.Async.execute("UPDATE hsn_weed SET weedstatus = '"..weeds[weed].weedstatus.. "' WHERE weedid = '" ..weed.. "'")
             TriggerClientEvent('hsn-weed:client:updateweedstatus',-1,weed,weeds[weed].weedstatus)
             Player.removeInventoryItem(item, 1)
         else
