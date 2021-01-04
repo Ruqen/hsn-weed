@@ -6,3 +6,8 @@ CREATE TABLE `hsn_weed` (
 COLLATE='utf8_general_ci'
 ENGINE=InnoDB
 ;
+
+INSERT INTO `items` (`name`, `label`, `weight`) VALUES
+	('pot', 'Pot', 1),
+	('weedg', 'Weed', 1)
+;
